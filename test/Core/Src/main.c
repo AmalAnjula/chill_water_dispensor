@@ -446,13 +446,15 @@ HAL_TIM_Base_Start_IT(&htim2);
       if(HAL_GPIO_ReadPin(ManualPin_GPIO_Port, ManualPin_Pin)== GPIO_PIN_RESET ){
         
       nowater=false;
-        HAL_Delay (50);
+      HAL_GPIO_WritePin(relayOut_GPIO_Port, relayOut_Pin, GPIO_PIN_RESET);
+        HAL_Delay (15);
        
-  manaul=true;
-
+      manaul=true;
+      
+      pulses = 0;
         while (HAL_GPIO_ReadPin(ManualPin_GPIO_Port, ManualPin_Pin) == GPIO_PIN_RESET)
         {
-          HAL_GPIO_WritePin(relayOut_GPIO_Port, relayOut_Pin, GPIO_PIN_RESET);
+          
         //  MAX7219_Init();
           HAL_Delay(50);
           //pulses=0;
@@ -463,7 +465,7 @@ HAL_TIM_Base_Start_IT(&htim2);
         HAL_GPIO_WritePin(relayOut_GPIO_Port, relayOut_Pin, GPIO_PIN_SET);
         ready=0;
 manaul=false;
-        HAL_Delay(200);
+        HAL_Delay(100);
         MAX7219_Init();
         setRunScreen(false);
         
